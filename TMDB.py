@@ -5,7 +5,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import LinearRegression
 
 #load training data
-train_data=pd.read_csv("/home/maheep/Videos/TMDB/train.csv")
+train_data=pd.read_csv("train.csv")
 
 #remove null and zero values
 x_popularity = train_data['popularity'].mean()
@@ -37,7 +37,7 @@ Y_train=train_data['revenue']
 
 
 #load test data
-test_data=pd.read_csv("/home/maheep/Videos/TMDB/test.csv")
+test_data=pd.read_csv("test.csv")
 
 #remove null and zero values
 x_popularity = test_data['popularity'].mean()
@@ -76,7 +76,7 @@ predicted=abs(predicted)
 
 
 #For creating submission file
-test_data=pd.read_csv("/home/maheep/Videos/TMDB/test.csv")
+test_data=pd.read_csv("test.csv")
 
 #create submission file
 submission = np.empty((4398,2),dtype=int)
