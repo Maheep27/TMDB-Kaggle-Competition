@@ -2,12 +2,11 @@ import pandas as pd
 import numpy as np
 from sklearn import preprocessing
 from sklearn.preprocessing import LabelEncoder
-from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import GradientBoostingRegressor
 
 #load training data
-train_data=pd.read_csv("train.csv")
+train_data=pd.read_csv("/home/maheep/Videos/TMDB/train.csv")
 
-#remove null and zero values
 x_popularity = train_data['popularity'].mean()
 train_data['popularity'] = np.where(train_data['popularity'].isnull(), x_popularity , train_data['popularity'])
 
@@ -37,9 +36,8 @@ Y_train=train_data['revenue']
 
 
 #load test data
-test_data=pd.read_csv("test.csv")
+test_data=pd.read_csv("/home/maheep/Videos/TMDB/test.csv")
 
-#remove null and zero values
 x_popularity = test_data['popularity'].mean()
 test_data['popularity'] = np.where(test_data['popularity'].isnull(), x_popularity , test_data['popularity'])
 
@@ -65,8 +63,8 @@ test_data['runtime']=test_data["runtime"].astype(dtype=np.int64)
 #considering only specific feature
 X_test=test_data[['popularity','budget','runtime','original_language']]
 
-# Create LinearRegressionclassification object 
-model = LinearRegression()
+# Create GradientBoostingRegressor object 
+model = GradientBoostingRegressor(loss='huber',n_estimators=150)
 #fit training data into model
 model.fit(X_train, Y_train)
 
@@ -76,7 +74,7 @@ predicted=abs(predicted)
 
 
 #For creating submission file
-test_data=pd.read_csv("test.csv")
+test_data=pd.read_csv("/home/maheep/Videos/TMDB/test.csv")
 
 #create submission file
 submission = np.empty((4398,2),dtype=int)
